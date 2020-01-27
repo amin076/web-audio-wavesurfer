@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>sound mixer</title>
+    <style>
+        .container {
+            background-color: rgb(241, 228, 212);
+            border: 1px gray solid;
+            border-radius: 5px;
+        }
+        
+        .row {
+            border: 1px darkgray solid;
+        }
+        
+        .col-4 {
+            border-right: 1px darkgray solid;
+        }
+        
+        button {
+            margin: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="wavesurfer.js"></script>
+    <script src="wavesurfer.timeline.min.js"></script>
+
+
+    <div class="container">
+        <br>
+        <h1 class="text-center">sound mixer</h1>
+
+
+        <div class="row">
+            <div class="col-4">
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="play1()">
+                    Play
+                </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer.toggleMute()">
+                     Mute
+                  </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer.toggleScroll()">
+                     Scroll
+              </button>
+
+                <div>
+                    <input class="volume-control " type="range" min="0" max="1" step="0.05" value="0.5">
+                    <span class="volume-value"> volume : 0.5</span>
+                </div>
+                <div>
+                    <input class="panner-control " type="range" min="-1" max="1" step="0.05" value="0">
+                    <span class="panner-value ">panning : 1</span>
+                </div>
+                <div>
+                    <input class="play-rate" type="range" min="0.5" max="1.5" step="0.05" value="1">
+                    <span class="rate-value">play rate : 1</span>
+                </div>
+                <div>
+
+                    <input class="low-pass" type="range" min="0" max="5000" step="50" value="2000 ">
+                    <span class="lowpass-value ">2000</span>
+                </div>
+            </div>
+
+            <div id="wave" class="col-8">
+                <div id="waveform"></div>
+                <div id="wave-timeline"></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="play2()">
+                    Play
+                  </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer2.toggleMute()">
+                    Mute
+                 </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer2.toggleScroll()">
+                    Scroll
+             </button>
+
+                <div>
+                    <input class="volume-control2 " type="range" min="0" max="1" step="0.05" value="0.5">
+                    <span class="volume-value2">volume : 0.5</span>
+                </div>
+                <div>
+                    <input class="panner-control2 " type="range" min="-1" max="1" step="0.05" value="0">
+                    <span class="panner-value2 ">panning : 1</span>
+                </div>
+                <div>
+                    <input class="play-rate2" type="range" min="0.5" max="1.5" step="0.05" value="1">
+                    <span class="rate-value2">play rate : 1</span>
+                </div>
+            </div>
+            <div id="wave" class="col-8">
+                <div id="wave2"></div>
+                <div id="wave-timeline2"></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="play3()">
+                    Play
+                  </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer3.toggleMute()">
+                    Mute
+                 </button>
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="wavesurfer3.toggleScroll()">
+                    Scroll
+             </button>
+
+                <div>
+                    <input class="volume-control3 " type="range" min="0" max="1" step="0.05" value="0.5">
+                    <span class="volume-value3"> volume : 0.5</span>
+                </div>
+                <div>
+                    <input class="panner-control3 " type="range" min="-1" max="1" step="0.05" value="0">
+                    <span class="panner-value3 ">panning : 1</span>
+                </div>
+                <div>
+                    <input class="play-rate3" type="range" min="0.5" max="1.5" step="0.05" value="1">
+                    <span class="rate-value3">play rate : 1</span>
+                </div>
+            </div>
+            <div id="wave" class="col-8">
+                <div id="wave3"></div>
+                <div id="wave-timeline3"></div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <button type="button" class="btn btn-outline-info btn-sm" onclick="playall()">
+        Play | Pause all
+      </button>
+
+    </div>
+    <script>
+        var wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+
+            waveColor: 'blue',
+            mediaControls: true,
+            progressColor: 'red',
+            responsive: true,
+
+            skipLength: 4
+
+
+        });
+
+        wavesurfer.addPlugin(WaveSurfer.timeline.create({
+            container: '#wave-timeline',
+            // ... other timeline options
+        })).initPlugin('timeline');
+
+
+        var wavesurfer2 = WaveSurfer.create({
+            container: '#wave2',
+
+            waveColor: 'red',
+            mediaControls: true,
+            progressColor: 'green',
+            responsive: true,
+
+            skipLength: 4
+
+
+        });
+        wavesurfer2.addPlugin(WaveSurfer.timeline.create({
+            container: '#wave-timeline2',
+            // ... other timeline options
+        })).initPlugin('timeline');
+        var wavesurfer3 = WaveSurfer.create({
+            container: '#wave3',
+            barWidth: 1,
+            waveColor: 'green',
+            mediaControls: true,
+            progressColor: 'black',
+            responsive: true,
+
+            skipLength: 4
+
+
+        });
+        wavesurfer3.addPlugin(WaveSurfer.timeline.create({
+            container: '#wave-timeline3',
+            // ... other timeline options
+        })).initPlugin('timeline');
+
+
+
+        function playall() {
+            wavesurfer.playPause();
+            wavesurfer2.playPause();
+            wavesurfer3.playPause();
+        };
+
+        function play1() {
+            wavesurfer.playPause();
+
+        };
+
+        function play2() {
+
+            wavesurfer2.playPause();
+
+        };
+
+        function play3() {
+
+
+            wavesurfer3.playPause();
+        };
+
+        //wavesurfer.load('http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3');
+        wavesurfer.load('m.mp3');
+        wavesurfer2.load('d.mp3');
+        wavesurfer3.load('c.mp3');
+
+        var volumeControl = document.querySelector('.volume-control');
+        var volumeValue = document.querySelector('.volume-value');
+        wavesurfer.setVolume(.5);
+        volumeControl.oninput = function() {
+            wavesurfer.setVolume(volumeControl.value);
+            volumeValue.innerHTML = 'volume : ' + volumeControl.value;
+
+        };
+
+        var volumeControl2 = document.querySelector('.volume-control2');
+        var volumeValue2 = document.querySelector('.volume-value2');
+        wavesurfer2.setVolume(.5);
+        volumeControl2.oninput = function() {
+            wavesurfer2.setVolume(volumeControl2.value);
+            volumeValue2.innerHTML = 'volume : ' + volumeControl2.value;
+
+        };
+
+        var volumeControl3 = document.querySelector('.volume-control3');
+        var volumeValue3 = document.querySelector('.volume-value3');
+        wavesurfer2.setVolume(.5);
+        volumeControl3.oninput = function() {
+            wavesurfer3.setVolume(volumeControl3.value);
+            volumeValue3.innerHTML = 'volume : ' + volumeControl3.value;
+
+        };
+
+        var panner = wavesurfer.backend.ac.createStereoPanner();
+        var panControl = document.querySelector('.panner-control');
+        var panValue = document.querySelector('.panner-value');
+
+        panControl.oninput = function() {
+            wavesurfer.backend.setFilter(panner);
+            panner.pan.value = panControl.value;
+            panValue.innerHTML = 'panning : ' + panControl.value;
+        };
+
+
+        var panner2 = wavesurfer2.backend.ac.createStereoPanner();
+        var panControl2 = document.querySelector('.panner-control2');
+        var panValue2 = document.querySelector('.panner-value2');
+
+        panControl2.oninput = function() {
+            wavesurfer2.backend.setFilter(panner2);
+            panner2.pan.value = panControl2.value;
+            panValue2.innerHTML = 'panning : ' + panControl2.value;
+        };
+
+
+        var panner3 = wavesurfer3.backend.ac.createStereoPanner();
+        var panControl3 = document.querySelector('.panner-control3');
+        var panValue3 = document.querySelector('.panner-value3');
+
+        panControl3.oninput = function() {
+            wavesurfer3.backend.setFilter(panner3);
+            panner3.pan.value = panControl3.value;
+            panValue3.innerHTML = 'panning : ' + panControl3.value;
+        }
+
+        var playrate = document.querySelector('.play-rate');
+        var rateValue = document.querySelector('.rate-value');
+
+        playrate.oninput = function() {
+            rateValue.innerHTML = 'play rate : ' + playrate.value;
+            wavesurfer.setPlaybackRate(playrate.value);
+        };
+
+        var playrate2 = document.querySelector('.play-rate2');
+        var rateValue2 = document.querySelector('.rate-value2');
+
+        playrate2.oninput = function() {
+            rateValue2.innerHTML = 'play rate : ' + playrate2.value;
+            wavesurfer2.setPlaybackRate(playrate2.value);
+        };
+
+        var playrate3 = document.querySelector('.play-rate3');
+        var rateValue3 = document.querySelector('.rate-value3');
+
+        playrate3.oninput = function() {
+            rateValue3.innerHTML = 'play rate : ' + playrate3.value;
+            wavesurfer3.setPlaybackRate(playrate3.value);
+        };
+
+        var lowpass = wavesurfer.backend.ac.createBiquadFilter();
+        var lowpassControl = document.querySelector('.low-pass');
+        var lowpassValue = document.querySelector('.lowpass-value');
+        lowpass.frequency.value = 2000;
+        lowpass.type = "lowpass ";
+
+        lowpassControl.oninput = function() {
+            wavesurfer.backend.setFilter(lowpass);
+            lowpass.frequency.value = lowpassControl.value;
+            lowpassValue.innerHTML = lowpassControl.value;
+
+        };
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
