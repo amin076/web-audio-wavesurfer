@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <title>animation</title>
+</head>
+
+<body>
+
+    <div class="container" style="border: 1px gray solid;">
+        <h2>hi eberyone</h2>
+        <div>
+            <button id="pause">Pause</button>
+            <button id="play">Play</button>
+            <button id="stop">Stop</button>
+        </div>
+        <div class="mover" style="width: 0%; border-right:2px solid
+                red;height:300px;position:absolute;"></div>
+        <div style="border:2px solid black; "> audio number 1</div>
+        <div style="border:2px solid black; "> audio number 2</div>
+        <div style="border:2px solid black; "> audio number 3</div>
+    </div>
+
+    <script>
+        const rotate = [{
+                width: " 0%"
+            },
+
+            {
+                width: "100%"
+            }
+        ];
+        const timing = {
+            duration: 3000,
+
+        };
+        var element = document.querySelector(".mover").animate(rotate, timing);
+        element.pause();
+        document.getElementById("pause").addEventListener("click", function() {
+            element.pause();
+        });
+        document.getElementById("play").addEventListener("click", function() {
+            element.play();
+
+        });
+        document.getElementById("stop").addEventListener("click", function() {
+            element.cancel();
+
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
