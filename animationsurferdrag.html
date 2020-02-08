@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="wavesurfer.js"></script>
+    <script src="wavesurfer.timeline.min.js"></script>
+    <title>animation and drag</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="container-fluid" style="border: 1px gray solid;padding:0px;margin:0px;">
+        <div class="waveform1">
+        </div>
+        <div class="waveform2">
+        </div>
+        <div class="waveform3">
+        </div>
+
+    </div>
+    <div>
+        <button id="pause">Pause</button>
+        <button id="play">Play</button>
+        <button id="stop">Stop</button>
+    </div>
+    <div class="mover" style="width: 0%; border-right:2px solid
+    red;height:350px;position:absolute;left:1px; top:10px;"></div>
+
+    <div class=" container">
+        <h1>drag and drop audio waveform </h1>
+        <button class="btn btn-success" onclick="play1()">play|pause1</button>
+        <button type="button" class="btn btn-success" onclick="wavesurfer.toggleScroll()">
+            Scroll</button>
+        <button class="btn btn-success" onclick="play2()">play|pause2</button>
+        <button type="button" class="btn btn-success" onclick="wavesurfer2.toggleScroll()">
+            Scroll
+     </button>
+        <button class="btn btn-success" onclick="play3()">play|pause2</button>
+        <button type="button" class="btn btn-success" onclick="wavesurfer3.toggleScroll()">
+            Scroll
+     </button>
+        <button class="btn btn-success" onclick="showtime()">1</button>
+        <button class="btn btn-success" onclick="showtime2()">2</button>
+        <button class="btn btn-success" onclick="showtime3()">3</button>
+
+    </div>
+
+    <script>
+        const rotate = [{
+                width: " 0%"
+            },
+
+            {
+                width: " 100%"
+            }
+        ];
+        const timing = {
+            duration: 400000,
+
+        };
+        var element = document.querySelector(".mover").animate(rotate, timing);
+        element.pause();
+        document.getElementById("pause").addEventListener("click", function() {
+            element.pause();
+        });
+        document.getElementById("play").addEventListener("click", function() {
+            element.play();
+
+        });
+        document.getElementById("stop").addEventListener("click", function() {
+            element.cancel();
+
+        });
+
+
+        var container = document.querySelector(".container-fluid");
+        var activeItem = null;
+        var active = false;
+        var currentX;
+        var currentY;
+        var initialX;
+        var initialY;
+        var xOffset = 0;
+        var yOffset = 0;
+
+        container.addEventListener("touchstart", dragStart, false);
+        container.addEventListener("touchend", dragEnd, false);
+        container.addEventListener("touchmove", drag, false);
+
+        container.addEventListener("mousedown", dragStart, false);
+        container.addEventListener("mouseup", dragEnd, false);
+        container.addEventListener("mousemove", drag, false);
+
+        function dragStart(e) {
+
+            if (e.target !== e.currentTarget) {
+                active = true;
+
+                // this is the item we are interacting with
+                activeItem = e.target;
+
+                if (activeItem !== null) {
+                    if (!activeItem.xOffset) {
+                        activeItem.xOffset = 0;
+                    }
+
+                    if (!activeItem.yOffset) {
+                        activeItem.yOffset = 0;
+                    }
+
+                    if (e.type === "touchstart") {
+                        activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
+                        activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
+                    } else {
+                        console.log("doing something!");
+                        activeItem.initialX = e.clientX - activeItem.xOffset;
+                        activeItem.initialY = e.clientY - activeItem.yOffset;
+                    }
+                }
+            }
+        }
+
+        function dragEnd(e) {
+            if (activeItem !== null) {
+                activeItem.initialX = activeItem.currentX;
+                activeItem.initialY = activeItem.currentY;
+            }
+
+            active = false;
+            activeItem = null;
+        }
+
+        function drag(e) {
+            if (active) {
+                if (e.type === "touchmove") {
+                    e.preventDefault();
+
+                    activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
+                    activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+                } else {
+                    activeItem.currentX = e.clientX - activeItem.initialX;
+                    activeItem.currentY = e.clientY - activeItem.initialY;
+                }
+
+                activeItem.xOffset = activeItem.currentX;
+                activeItem.yOffset = activeItem.currentY;
+
+                setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+        }
+
+        var wavesurfer = WaveSurfer.create({
+            container: '.waveform1',
+            waveColor: 'blue',
+            mediaControls: true,
+            progressColor: 'red',
+            responsive: true
+        });
+
+        wavesurfer.load('m.mp3');
+        var wave = document.querySelector(".waveform1");
+
+        function showtime() {
+            wave.style.width = Math.round(wavesurfer.getDuration() / 4) + '%';
+        }
+
+        function play1() {
+            wavesurfer.playPause();
+
+        };
+        var wavesurfer2 = WaveSurfer.create({
+            container: '.waveform2',
+            waveColor: 'blue',
+            mediaControls: true,
+            progressColor: 'red',
+            responsive: true
+        });
+
+
+        wavesurfer2.load('c.mp3');
+
+        var wave2 = document.querySelector(".waveform2");
+
+        function showtime2() {
+            wave2.style.width = Math.round(wavesurfer2.getDuration() / 4) + '%';
+        }
+
+        function play2() {
+            wavesurfer2.playPause();
+        };
+
+        var wavesurfer3 = WaveSurfer.create({
+            container: '.waveform3',
+            waveColor: 'blue',
+            mediaControls: true,
+            progressColor: 'red',
+            responsive: true
+
+
+        });
+
+
+        wavesurfer3.load('d.mp3');
+
+        var wave3 = document.querySelector(".waveform3");
+
+
+        function showtime3() {
+            wave3.style.width = Math.round(wavesurfer3.getDuration() / 4) + '%';
+        }
+
+
+        function play3() {
+            wavesurfer3.playPause();
+        };
+    </script>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
