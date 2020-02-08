@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="wavesurfer.js"></script>
+    <title>interval time </title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="waveform"></div>
+        <button onclick="settime()"> set interval time </button>
+        <input type="range" class="ranger" min="1000" max="10000" value="3000">
+        <span id="rtime">time is : 1000 miliseconds</span>
+    </div>
+
+    <script>
+        var wavesurfer = WaveSurfer.create({
+            container: '.waveform',
+            scrollParent: true,
+            waveColor: 'blue',
+            mediaControls: true,
+            progressColor: 'red',
+            responsive: true,
+            skipLength: 4,
+        });
+
+
+        wavesurfer.load('c.mp3');
+
+        var intime;
+
+        var timer = document.querySelector('.ranger');
+        var timevalue = document.getElementById('rtime');
+        timer.oninput = function() {
+            intime = timer.value;
+            console.log(timer.value);
+            timevalue.innerHTML = 'time is : ' + timer.value + 'milieconds';
+        };
+
+        function settime() {
+            var inter = setInterval(function() {
+                wavesurfer.play();
+                clearInterval(inter);
+            }, intime);
+
+        }
+    </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
