@@ -1,0 +1,86 @@
+<button class="btn btn play-all" (click)="PlayProject()">
+  <fa-icon [icon]="faPlay"></fa-icon>
+</button>
+<button class="btn btn stop-all" (click)="StopProject()">
+  <fa-icon [icon]="faStop"></fa-icon>
+</button>
+
+
+
+<div class="row m-0">
+    <div class="col-xl-2">
+        <div class="row work-item-manage-container" style="background-color:#422d76 ;color:white;">
+            <div class="col-xl-12">
+                <div class="row">
+                    <div class="col-xl-12 p-1">
+                        <div class="row p-1">
+                            <div class="col-xl-10 " style="box-sizing: border-box; float: left;">01-Elaheh Naz</div>
+                            <div class="col-xl-2 text-center " style="color:#9d7dae ;">
+                                <fa-icon [icon]="faEllipsisH" size="1x"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xl-10 work-item-buttons ">
+                                <button class="btn btn-outline-info  ">
+                  <fa-icon [icon]="faHeadphones" size="1x"></fa-icon>
+                </button>
+                                <button class="btn btn-outline-info ">
+                  <fa-icon [icon]="faVolumeMute" size="1x"></fa-icon>
+                </button>
+                                <button class="btn btn-outline-info ">
+                  <fa-icon [icon]="faLock" size="1x"></fa-icon>
+                </button>
+                            </div>
+                            <div class="col-xl-2 text-center" style="color:#9d7dae ;">
+                                <fa-icon [icon]="faBars" size="1x"></fa-icon>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row work-item-sliders" style=" padding-bottom:10px;border-top: .5px #9d7dae solid;">
+                    <div class="col-xl-6 p-0 text-center">
+                        <div class="text-center">Volume</div>
+                        <span style="margin-right: 2px;"><fa-icon [icon]="faMinus" size="xs"></fa-icon></span>
+                        <!--mat-slider style="width:60%;"></mat-slider-->
+                        <ng5-slider style="width:74% ;"></ng5-slider>
+                        <span style="margin-left: 2px;">
+                        <fa-icon [icon]="faPlus" size="xs"></fa-icon>
+                        </span>
+                    </div>
+                    <div class="col-xl-6 p-0 text-center " style=" border-left: .5px #9d7dae solid;">
+                        <div class="text-center">Pan</div>
+                        <span style="margin-right:2px;"> L</span>
+                        <!--mat-slider></mat-slider-->
+                        <ng5-slider style="width:74% ;"></ng5-slider>
+                        <span style="margin-left:2px;"> R</span>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row draggable-container ">
+            <div class="col-xl-12 text-center p-2">
+                <div class="text-center" style="color: #9d7dae;margin:5px">
+                    <span><fa-icon [icon]="faPlus" size="3x"></fa-icon></span>
+                </div>
+                <div class="text-center">
+                    <a style="color: #9d7dae;"> DRAG AND DROP NEW TRACKS HERE</a>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="-col-xl-10">
+
+        <div style="width: 300px;height: 150px" *ngFor="let workItem of workItems;let  i=index" [id]="wavContainerPrefixId +i">
+        </div>
+
+    </div>
+</div>
