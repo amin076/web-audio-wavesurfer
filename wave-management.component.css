@@ -1,0 +1,84 @@
+.work-item-buttons>button {
+    color: #9d7dae;
+    background-color: #332751;
+    border: none;
+    border-radius: 50%;
+}
+
+.work-item-buttons>button:hover {
+    color: white;
+    background-color: #332751;
+}
+
+mat-slider {
+    max-width: 50%;
+}
+
+.work-item-manage-container {
+    border: .5px #9d7dae solid;
+    background-color: #422d76;
+}
+
+.draggable-container {
+    border: .5px #9d7dae solid;
+    background-color: #210b43;
+    border-top: none;
+    font-family: Arial;
+    font-size: 7px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+a {
+    font-family: Arial;
+    font-size: 17px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+.work-item-buttons button {
+    line-height: 0.5;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.play-all {
+    background-color: #332751;
+    color: #a0b419;
+    margin: 1px;
+    border-radius: 6px 0 0 6px;
+}
+
+.play-all :hover {
+    opacity: 50%;
+}
+
+.stop-all {
+    background-color: #332751;
+    color: #d73633;
+    margin: 1px;
+    border-radius: 0;
+}
+
+.stop-all :hover {
+    opacity: 50%;
+}
+
+.timer {
+    background-color: #332751;
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: left;
+    padding-top: -5px;
+    padding-bottom: 5px;
+}
