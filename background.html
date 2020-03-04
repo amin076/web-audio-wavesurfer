@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Test nav</title>
+</head>
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+
+<body>
+    <br>
+    <div class="container-flou text-center">
+
+        <canvas id="back-pattern"></canvas>
+    </div>
+    <script>
+        var canv = document.getElementById('back-pattern');
+        var ctx = canv.getContext('2d');
+        //var canwidth = window.innerWidth;
+        var canwidth = window.innerWidth;
+        //var canheight = window.innerHeight;
+        var canheight = 517.5;
+        ctx.canvas.width = canwidth;
+        ctx.canvas.height = canheight;
+        var lineStroke = 0.5;
+        var waveHeight = 62;
+        var distancePixel = 68;
+        var leftdist = 136;
+        var toptdist = 66;
+        ctx.fillStyle = '#210b43';
+        ctx.fillRect(0, 0, canwidth, canheight);
+        ctx.fillStyle = '#332751';
+        ctx.fillRect(136, 56, canwidth, 10);
+
+        var k = 0;
+        for (var i = 0; i < 25;) {
+            ctx.fillStyle = '#9d7dae';
+            k = leftdist + distancePixel * i
+            ctx.fillRect(k, 40, lineStroke, canheight - 40);
+            ctx.fillRect(k + distancePixel / 4, 46, lineStroke, 10);
+            ctx.fillRect(k + distancePixel / 2, 46, lineStroke, 10);
+            ctx.fillRect(k + distancePixel * 0.75, 46, lineStroke, 10);
+            ctx.font = "12px Arial";
+            ctx.fillStyle = "#9d7dae";
+            ctx.fillText(i + 1, k + 2, 50);
+            i++;
+        }
+
+        ctx.fillRect(0, 35, canwidth, lineStroke);
+        ctx.fillRect(0, 0, lineStroke, canheight);
+        for (var i = 0; i < 10;) {
+            ctx.fillRect(leftdist, toptdist + waveHeight * i, canwidth, lineStroke);
+
+            i++;
+        }
+    </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
